@@ -12,15 +12,19 @@
       <%= title %>
     </h1>
     <video id="player" playsinline controls>
-  <source src="<%= url %>" type="video/mp4" />
+  <source src="<%= url %>" type="video/mp4" data-poster="<%= thumbnail %>"/>
   </video>
    <details>
   <summary>Description:</summary>
   <p style="white-space: pre;"><%= description %></p>
 </details>
       <details>
-  <summary>Description:</summary>
-  <p style="white-space: pre;"><%= description %></p>
+  <summary>Related Videos:</summary>
+    <% var i = 0; while (i < related_videos.length) {%>
+  <p>
+    <a href="/watch?id=<%= related_videos[i].id %>"><%= related_videos[i].title %></a>
+    <br><%= related_videos[i].author %> &bull; <%= related_videos[i].author %></p>
+      <% i++; }  %>
 </details>
    <footer>
     <script>
