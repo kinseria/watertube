@@ -17,7 +17,8 @@ app.get("/watch", (req, res) => {
       url: info.player_response.streamingData.formats[0].url,
       description: info.videoDetails.description.simpleText,
       related_videos: info.related_videos,
-      thumbnail: info.videoDetails.thumbnail.thumbnails[0].url
+      thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,
+      views:info.videoDetails.viewCount,author:info.videoDetails.author.name
     });
   });
 });
