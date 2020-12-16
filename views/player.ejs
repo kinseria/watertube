@@ -29,7 +29,7 @@
   <summary>Related Videos:</summary>
     <% var i = 0; while (i < related_videos.length) {%>
   <p>
-    <a href="/watch?id=<%= related_videos[i].id %>"><%= related_videos[i].title %></a>
+    <a href="/watch/<%= related_videos[i].id %>"><%= related_videos[i].title %></a>
     <br><%= related_videos[i].author.name %> &bull; <%= related_videos[i].short_view_count_text %> views</p>
       <% i++; }  %>
 </details>
