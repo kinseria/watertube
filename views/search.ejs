@@ -11,6 +11,7 @@
     </h1>
     <% var i = 0; while(i < data.length){ %>
     <h4>
+      <img src="<%- data[i].bestThumbnail.url %>">
       <a href="/watch/<%= data[i].id %>"><%= data[i].title %></a>
     </h4>
     <p>
