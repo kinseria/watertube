@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-
+const ytdl = require("ytdl-core");
 app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -9,7 +9,18 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
+app.get("/watch", (req, res) => {
+  ytdl.getInfo(req.query.id).then(info => {
+    console.log("title:", info.videoDetails.title);
+    console.log("rating:", info.player_response.videoDetails.averageRating);
+    console.log("uploaded by:", info.videoDetails.author.name);
+    console.log("url:", info.player_response.streamingData.formats[0].url);
 
+    res.render("index.ejs", {
+      url: info.player_response.streamingData.formats[0].url
+    });
+  });
+});
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
 });
