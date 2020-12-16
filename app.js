@@ -16,7 +16,7 @@ app.get("/watch", (req, res) => {
     console.log("uploaded by:", info.videoDetails.author.name);
     console.log("url:", info.player_response.streamingData.formats[0].url);
 
-    res.render("index.ejs", {
+    res.render("player.ejs", {
       url: info.player_response.streamingData.formats[0].url
     });
   });
