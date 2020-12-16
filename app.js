@@ -10,12 +10,12 @@ app.get("/", (req, res) => {
   res.render("index.ejs");
 });
 app.get("/watch", (req, res) => {
-  res.set("Cache-Control", " max-age=7200")
+  res.set("Cache-Control", " max-age=7200");
   ytdl.getInfo(req.query.id).then(info => {
     res.render("player.ejs", {
       title: info.videoDetails.title,
       url: info.player_response.streamingData.formats[0].url,
-      description:info.videoDetails.simpleText
+      description: info.videoDetails.description.simpleText
     });
   });
 });
