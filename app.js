@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const ytdl = require("ytdl-core");
+const anchorme = require("anchorme").default;
 const https = require("https"); // Mainly for downloads
 app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
@@ -17,7 +18,7 @@ app.get("/watch/:id", (req, res) => {
     res.render("player.ejs", {
       title: info.videoDetails.title,
       url: info.player_response.streamingData.formats[0].url,
-      description: info.videoDetails.description.simpleText,
+      description: anchorme(info.videoDetails.description.simpleText),
       related_videos: info.related_videos,
       thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,
       views: info.videoDetails.viewCount,
