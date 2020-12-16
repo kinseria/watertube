@@ -11,6 +11,15 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
+app.get("/search", (req, res) => {
+  var query = req.query.q;
+  if (!query) {
+    res.render("400.ejs", { message: "Please provide a query string." });
+  } else {
+    
+  }
+  
+});
 app.get("/watch/:id", (req, res) => {
   var id = req.params.id;
   res.set("Cache-Control", "max-age=7200");
