@@ -7,11 +7,14 @@
   "description": "A simple Node app built on Express, instantly up and running.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "ejs": "^3.1.5"
+    "ejs": "^3.1.5",
+    "ytdl-core": "^4.1.5",
+    "ytsr": "^2.0.1",
+    "ytpl": "^2.0.3"
   },
   "engines": {
     "node": "12.x"
