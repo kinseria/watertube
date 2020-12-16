@@ -13,27 +13,49 @@ app.get("/", (req, res) => {
 });
 app.get("/watch/:id", (req, res) => {
   var id = req.params.id;
-  res.set("Cache-Control", " max-age=7200");
-  ytdl.getInfo(id).then(info => {
-    res.render("player.ejs", {
-      title: info.videoDetails.title,
-      formats: info.player_response.streamingData.formats,
-      description: anchorme(info.videoDetails.description.simpleText),
-      related_videos: info.related_videos,
-      thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,
-      views: info.videoDetails.viewCount,
-      author: info.videoDetails.author.name
+  res.set("Cache-Control", "max-age=7200");
+  if (!id || !ytdl.validateID(id)) {
+    res.render("404.ejs");
+  }
+  ytdl
+    .getInfo(id)
+    .then(info => {
+      res.render("player.ejs", {
+        title: info.videoDetails.title,
+        formats: info.player_response.streamingData.formats,
+        description: anchorme(info.videoDetails.description.simpleText),
+        related_videos: info.related_videos,
+        thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,
+        views: info.videoDetails.viewCount,
+        author: info.videoDetails.author.name
+      });
+    })
+    .catch(err => {
+      res.render("404.ejs");
     });
-  });
 });
 app.get("/download/:id", (req, res) => {
   var id = req.params.id;
+  if (!id || !ytdl.validateID(id)) {
+    res.render("404.ejs");
+  }
   res.set("Cache-Control", " max-age=7200");
-  ytdl.getInfo(id).then(info => {
-    https.get(info.player_response.streamingData.formats[0].url, function(file) {
-      file.pipe(res);
+  ytdl
+    .getInfo(id)
+    .then(info => {
+      https.get(info.player_response.streamingData.formats[0].url, function(
+        file
+      ) {
+        file.pipe(res);
+      });
+    })
+    .catch(err => {
+      res.render("404.ejs");
     });
-  });
+});
+app.get("/*", (req, res) => {
+  // 404 page
+  res.render("404.ejs");
 });
 const listener = app.listen(process.env.PORT, () => {
   console.log("Your app is listening on port " + listener.address().port);
