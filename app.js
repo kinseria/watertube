@@ -14,7 +14,8 @@ app.get("/watch", (req, res) => {
   ytdl.getInfo(req.query.id).then(info => {
     res.render("player.ejs", {
       title: info.videoDetails.title,
-      url: info.player_response.streamingData.formats[0].url
+      url: info.player_response.streamingData.formats[0].url,
+      description:info.videoDetails.simpleText
     });
   });
 });
