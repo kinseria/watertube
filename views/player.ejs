@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.6.3/dist/plyr.min.css">
   </head>
   <body>
-    <video id="player" playsinline controls data-poster="/path/to/poster.jpg">
+    <h1>
+      <%= title %>
+    </h1>
+    <video id="player" playsinline controls>
   <source src="<%= url %>" type="video/mp4" />
-  <source src="/path/to/video.webm" type="video/webm" />
-
 </video>
    <footer>
     <script>
