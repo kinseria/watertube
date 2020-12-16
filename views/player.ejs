@@ -14,11 +14,14 @@
     <video id="player" playsinline controls>
   <source src="<%= url %>" type="video/mp4" />
   </video>
-    <h3>
-      
-    </h3>
-    <p style="white-space: pre;"><%= description %></p>
-   
+   <details>
+  <summary>Description:</summary>
+  <p style="white-space: pre;"><%= description %></p>
+</details>
+      <details>
+  <summary>Description:</summary>
+  <p style="white-space: pre;"><%= description %></p>
+</details>
    <footer>
     <script>
   const player = new Plyr('#player');
