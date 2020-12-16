@@ -17,7 +17,7 @@ app.get("/watch/:id", (req, res) => {
   ytdl.getInfo(id).then(info => {
     res.render("player.ejs", {
       title: info.videoDetails.title,
-      url: info.player_response.streamingData.formats[0].url,
+      formats: info.player_response.streamingData.formats,
       description: anchorme(info.videoDetails.description.simpleText),
       related_videos: info.related_videos,
       thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,

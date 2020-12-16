@@ -12,7 +12,9 @@
       <%= title %>
     </h1>
     <video id="player" playsinline controls>
-  <source src="<%= url %>" type="video/mp4" data-poster="<%= thumbnail %>"/>
+      <% var i = 0; while (i < formats.length) { var video = formats[i]%>
+  <source src="<%= formats.url %>" type="video/mp4" data-poster="<%= thumbnail %>"/>
+      <% i++; } %>
   </video>
       <details>
   <summary>Info:</summary>
@@ -23,7 +25,7 @@
     </details>
    <details>
   <summary>Description:</summary>
-  <p style="white-space: pre;"><%= description %></p>
+  <p style="white-space: pre;"><%- description %></p>
 </details>
       <details>
   <summary>Related Videos:</summary>
@@ -36,7 +38,7 @@
    <footer>
     <script>
   const player = new Plyr('#player', {
-  title: "<%= title %>",
+  title: "<%- title %>",
    });
 </script>
     </footer> 
