@@ -11,10 +11,10 @@
     </h1>
     <% var i = 0; while(i < data.length){ %>
     <h4>
-      <a><%= data[i].title %></a>
+      <a href="/watch/<%= data[i].id %>"><%= data[i].title %></a>
     </h4>
     <p>
-      <%= data[i].description %>
+      <%= data[i].description %> &bull; <%= data[i].uploadedAt %>
     </p>
     <% i++; } %>
   </body>

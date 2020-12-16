@@ -5,7 +5,7 @@ const ytdl = require("ytdl-core");
 const anchorme = require("anchorme").default;
 const https = require("https"); // Mainly for downloads
 const ytsr = require("ytsr");
-
+const strEscape = require("js-string-escape");
 app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -23,7 +23,12 @@ app.get("/search", (req, res) => {
       .then(data => {
         res.render("search.ejs", {
           query: query,
-          data: data.items.filter(item => item.type == "video")
+          data: data.items.filter(
+            item =>
+              function(item) {
+                return item.type == "video";
+              }
+          ) // hope to support playlists/channels soon!
         });
       })
       .catch(err => res.render("500.ejs"));
@@ -45,7 +50,8 @@ app.get("/watch/:id", (req, res) => {
         related_videos: info.related_videos,
         thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,
         views: info.videoDetails.viewCount,
-        author: info.videoDetails.author.name
+        author: info.videoDetails.author.name,
+        strEscape: strEscape
       });
     })
     .catch(err => {
