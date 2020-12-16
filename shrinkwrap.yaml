@@ -3,8 +3,7 @@ dependencies:
   ejs: 3.1.5
   express: 4.17.1
   ytdl-core: 4.1.6
-  ytpl: 2.0.3
-  ytsr: 2.0.2
+  ytsr: 3.0.0
 packages:
   /accepts/1.3.7:
     dependencies:
@@ -525,22 +524,14 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-byQCynwQeqzn0VkzASFWs41sxnGSHgAXC4Dm6r7woK3e/WNtTr0sfOIgLkRKXaTw3ez5Pq5VhGwFQtbY6YbxRA==
-  /ytpl/2.0.3:
+  /ytsr/3.0.0:
     dependencies:
       miniget: 4.1.0
     dev: false
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-E5nH0gULzpXAh7rcj6X7I8MK0L8hiprzZzsxTc/OPZDcYF53Z7O5IbU1vgMYzEmVsPtTLEWejT2HUWdjlgaCSQ==
-  /ytsr/2.0.2:
-    dependencies:
-      miniget: 4.1.0
-    dev: false
-    engines:
-      node: '>=8'
-    resolution:
-      integrity: sha512-KfAnOnyg6vY/vRblyt3tkd4Frpn9NAHDhYo4cp3e4hzPOlVJtZ+IZDI9qFuHcSVSCTm6pQn1el5wPexxCpzFqw==
+      integrity: sha512-/HgM0Vi8a3bJOpw8QZVWhfka0OygluQtfK7B8Kv5gkGdZEDLLJKFUb5i0ytUMWUNzUSNtO4vIAeLBVYYX4B4Dg==
 registry: 'https://registry.npmjs.org/'
 shrinkwrapMinorVersion: 9
 shrinkwrapVersion: 3
@@ -549,5 +540,4 @@ specifiers:
   ejs: ^3.1.5
   express: ^4.17.1
   ytdl-core: ^4.1.5
-  ytpl: ^2.0.3
-  ytsr: ^2.0.1
+  ytsr: ^3.0.0
