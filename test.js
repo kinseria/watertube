@@ -1,6 +1,11 @@
 (async () => {
   const ytsr = require("ytsr");
 
-  const searchResults = await ytsr("github");
-  console.log(searchResults);
+  const results = await ytsr("github");
+  var i = 0
+  while(i < results.items.length){
+    results.items[i].url
+    
+    i++
+  }
 })();

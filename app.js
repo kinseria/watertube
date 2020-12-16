@@ -16,9 +16,8 @@ app.get("/search", (req, res) => {
   if (!query) {
     res.render("400.ejs", { message: "Please provide a query string." });
   } else {
-    
+    res.render("search.ejs", { query: query });
   }
-  
 });
 app.get("/watch/:id", (req, res) => {
   var id = req.params.id;

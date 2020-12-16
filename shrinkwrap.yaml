@@ -2,7 +2,6 @@ dependencies:
   anchorme: 2.1.2
   ejs: 3.1.5
   express: 4.17.1
-  xss: 1.0.8
   ytdl-core: 4.1.6
   ytsr: 3.0.0
 packages:
@@ -89,10 +88,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-p9BVi9icQveV3UIyj3QIMcpTvCU=
-  /commander/2.20.3:
-    dev: false
-    resolution:
-      integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
   /concat-map/0.0.1:
     dev: false
     resolution:
@@ -121,10 +116,6 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
-  /cssfilter/0.0.10:
-    dev: false
-    resolution:
-      integrity: sha1-xtJnJjKi5cg+AT5oZKQs6N79IK4=
   /debug/2.6.9:
     dependencies:
       ms: 2.0.0
@@ -523,16 +514,6 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
-  /xss/1.0.8:
-    dependencies:
-      commander: 2.20.3
-      cssfilter: 0.0.10
-    dev: false
-    engines:
-      node: '>= 0.10.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-3MgPdaXV8rfQ/pNn16Eio6VXYPTkqwa0vc7GkiymmY/DqR1SE/7VPAAVZz1GJsJFrllMYO3RHfEaiUGjab6TNw==
   /ytdl-core/4.1.6:
     dependencies:
       m3u8stream: 0.8.3
@@ -558,6 +539,5 @@ specifiers:
   anchorme: ^2.1.2
   ejs: ^3.1.5
   express: ^4.17.1
-  xss: ^1.0.8
   ytdl-core: ^4.1.5
   ytsr: ^3.0.0
