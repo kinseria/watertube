@@ -7,7 +7,16 @@ const https = require("https"); // Mainly for downloads
 const ytsr = require("ytsr");
 const strEscape = require("js-string-escape");
 const ytrend = require("yt-trending-scraper");
+const request = require("sync-request");
 
+function captions(info) {
+  if (info.player_response.captions) {
+    return info.player_response.captions.playerCaptionsTracklistRenderer
+      .captionTracks;
+  } else {
+    return [];
+  }
+}
 
 app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
@@ -41,18 +50,17 @@ app.get("/watch/:id", (req, res) => {
   ytdl
     .getInfo(id)
     .then(info => {
-     
-        res.render("player.ejs", {
-          title: info.videoDetails.title,
-          formats: info.player_response.streamingData.formats,
-          description: anchorme(info.videoDetails.description.simpleText),
-          related_videos: info.related_videos,
-          thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,
-          views: info.videoDetails.viewCount,
-          author: info.videoDetails.author.name,
-          strEscape: strEscape
-        });
-      
+      res.render("player.ejs", {
+        title: info.videoDetails.title,
+        formats: info.player_response.streamingData.formats,
+        description: anchorme(info.videoDetails.description.simpleText),
+        related_videos: info.related_videos,
+        thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,
+        views: info.videoDetails.viewCount,
+        author: info.videoDetails.author.name,
+        strEscape: strEscape,
+        captions: captions(info)
+      });
     })
     .catch(err => {
       res.render("404.ejs");
@@ -76,6 +84,10 @@ app.get("/download/:id", (req, res) => {
     .catch(err => {
       res.render("404.ejs");
     });
+});
+app.get("/captionsproxy", (req, res) => {
+  // Video captions won't load without a "proxy" :/
+  res.send(request('GET', req.query.url).getBody().toString());
 });
 app.get("/*", (req, res) => {
   // 404 page
