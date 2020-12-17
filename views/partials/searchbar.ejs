@@ -1,0 +1,16 @@
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<form action="/search">
+      <input type="text" placeholder="Search" name="q" id="searchbar" style="width:100%;" value="<%- query || '' %>" required>
+</form>
+<script>
+$('#searchbar').on('input', async function() {
+ var response = await fetch(`/autocomplete?q=${document.querySelector("#searchbar").value}`)
+ var data = await response.json()
+ 
+ $( "#searchbar" ).autocomplete({
+      source: data
+    });
+});
+</script>

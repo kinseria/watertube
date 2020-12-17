@@ -91,6 +91,9 @@ app.get("/captionsproxy", (req, res) => {
   res.set("content-type", "text/vtt");
   res.send(execSync(`curl -sS ${req.query.url}`).toString());
 });
+app.get("/autocomplete", (req, res) => {
+  
+});
 app.get("/*", (req, res) => {
   // 404 page
   res.render("404.ejs");
