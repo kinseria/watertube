@@ -39,6 +39,13 @@
     <br><%= related_videos[i].author.name %> &bull; <%= related_videos[i].short_view_count_text %> views</p>
       <% i++; }  %>
 </details>
+          <details>
+  <summary>Comments:</summary>
+    <% var i = 0; while (i < comments.length) {%>
+  <p><%= comments[i].text %></p>
+  <br><a><%= comments[i].author %></a>
+      <% i++; }  %>
+</details>
    <footer>
     <script>
   const player = new window.Plyr('#player', {

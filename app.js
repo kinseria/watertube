@@ -15,11 +15,10 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  ytrend.scrape_trending_page("US");
   res.render("index.ejs");
 });
 app.get("/search", (req, res) => {
-  res.set("Cache-Control", "max-age=86400"); // 24h
+  res.set("Cache-Control", "max-age=604800"); // 1 week
   var query = req.query.q;
   if (!query) {
     res.render("400.ejs", { message: "Please provide a query string." });
@@ -36,7 +35,7 @@ app.get("/search", (req, res) => {
 });
 app.get("/watch/:id", (req, res) => {
   var id = req.params.id;
-  res.set("Cache-Control", "max-age=7200");
+  res.set("Cache-Control", "max-age=7200"); // 2 Hours, links only last about 6
   if (!id || !ytdl.validateID(id)) {
     res.render("404.ejs");
   }
