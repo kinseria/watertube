@@ -3,7 +3,7 @@ const CommentScraper = require("yt-comment-scraper")
 const ytcomments = new CommentScraper()
 
 for(let i = 0; i < 1; i++){
-    ytcomments.scrape_next_page_youtube_comments("dQw4w9WgXcQ").then((data) =>{
+    ytcomments.scrape_next_page_youtube_comments("nvEe8IF76jU").then((data) =>{
         console.log(data);
     }).catch((error)=>{
         console.log(error);
