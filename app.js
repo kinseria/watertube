@@ -8,6 +8,7 @@ const ytsr = require("ytsr");
 const strEscape = require("js-string-escape");
 const ytrend = require("yt-trending-scraper");
 const request = require("sync-request");
+const execSync = require("child_process").execSync;
 
 function captions(info) {
   if (info.player_response.captions) {
@@ -87,9 +88,8 @@ app.get("/download/:id", (req, res) => {
 });
 app.get("/captionsproxy", (req, res) => {
   // Video captions won't load without a "proxy" :/
-  https.get(req.query.url, function(file) {
-    file.pipe(res);
-  });
+  res.set("content-type", "text/vtt");
+  res.send(execSync(`curl -sS ${req.query.url}`).toString());
 });
 app.get("/*", (req, res) => {
   // 404 page
