@@ -87,7 +87,9 @@ app.get("/download/:id", (req, res) => {
 });
 app.get("/captionsproxy", (req, res) => {
   // Video captions won't load without a "proxy" :/
-  res.send(request('GET', req.query.url).getBody().toString());
+  https.get(req.query.url, function(file) {
+    file.pipe(res);
+  });
 });
 app.get("/*", (req, res) => {
   // 404 page
