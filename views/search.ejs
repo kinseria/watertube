@@ -9,9 +9,7 @@
     <h1>
       Results for: <%= query %>
     </h1>
-    <form action="/search">
-      <input type="text" placeholder="Search" name="q" style="width:100%;" value="<%- query || '' %>" required>
-    </form>
+   <%- include('partials/searchbar.ejs', {query:query || ""}) %>
     <% var i = 0; while(i < data.length){ %>
     <h4>
      

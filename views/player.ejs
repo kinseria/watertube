@@ -9,9 +9,7 @@
     <title><%= title %> by <%= author %> | </title>
   </head>
   <body>
-     <form action="/search">
-      <input type="text" placeholder="Search" name="q" style="width:100%;" required>
-    </form>
+     <%- include('partials/searchbar.ejs') %>
     <h1>
       <%= title %>
     </h1>

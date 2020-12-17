@@ -7,9 +7,8 @@ const https = require("https"); // Mainly for downloads
 const ytsr = require("ytsr");
 const strEscape = require("js-string-escape");
 const ytrend = require("yt-trending-scraper");
-const request = require("sync-request");
 const execSync = require("child_process").execSync;
-
+const youtubeSuggest = require("youtube-suggest");
 function captions(info) {
   if (info.player_response.captions) {
     return info.player_response.captions.playerCaptionsTracklistRenderer
@@ -30,7 +29,7 @@ app.get("/search", (req, res) => {
   res.set("Cache-Control", "max-age=604800"); // 1 week
   var query = req.query.q;
   if (!query) {
-    res.render("400.ejs", { message: "Please provide a search term" });
+    res.json([])
   } else {
     const results = ytsr(query)
       .then(data => {
@@ -92,7 +91,13 @@ app.get("/captionsproxy", (req, res) => {
   res.send(execSync(`curl -sS ${req.query.url}`).toString());
 });
 app.get("/autocomplete", (req, res) => {
-  
+  if (!req.query.q) {
+    res.render("400.ejs", { message: "Please provide a search term" }).status(400)
+  } else {
+    youtubeSuggest(req.query.q || "").then(function(results) {
+      res.json(results || []);
+    });
+  }
 });
 app.get("/*", (req, res) => {
   // 404 page
