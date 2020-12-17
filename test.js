@@ -1,6 +1,6 @@
 const ytdl = require("ytdl-core");
 
-ytdl.getInfo("dQw4w9WgXcQ").then(info => {
+ytdl.getInfo("CZ9n1Bck_YY").then(info => {
   const tracks =
     info.player_response.captions.playerCaptionsTracklistRenderer.captionTracks;
   if (tracks && tracks.length) {
