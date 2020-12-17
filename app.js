@@ -7,8 +7,7 @@ const https = require("https"); // Mainly for downloads
 const ytsr = require("ytsr");
 const strEscape = require("js-string-escape");
 const ytrend = require("yt-trending-scraper");
-const CommentScraper = require("yt-comment-scraper");
-const ytcomments = new CommentScraper();
+
 
 app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
@@ -42,7 +41,7 @@ app.get("/watch/:id", (req, res) => {
   ytdl
     .getInfo(id)
     .then(info => {
-      ytcomments.scrape_next_page_youtube_comments(id).then(data => {
+     
         res.render("player.ejs", {
           title: info.videoDetails.title,
           formats: info.player_response.streamingData.formats,
@@ -51,10 +50,9 @@ app.get("/watch/:id", (req, res) => {
           thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,
           views: info.videoDetails.viewCount,
           author: info.videoDetails.author.name,
-          strEscape: strEscape,
-          comments: data
+          strEscape: strEscape
         });
-      });
+      
     })
     .catch(err => {
       res.render("404.ejs");
