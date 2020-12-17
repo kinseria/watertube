@@ -15,7 +15,8 @@
     "ytdl-core": "^4.1.5",
     "ytsr": "^3.0.0",
     "anchorme": "^2.1.2",
-    "js-string-escape": "^1.0.1"
+    "js-string-escape": "^1.0.1",
+    "yt-trending-scraper": "^1.0.4"
   },
   "engines": {
     "node": "12.x"

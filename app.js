@@ -6,11 +6,14 @@ const anchorme = require("anchorme").default;
 const https = require("https"); // Mainly for downloads
 const ytsr = require("ytsr");
 const strEscape = require("js-string-escape");
+const ytrend = require("yt-trending-scraper")
+
 app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
+  ytrend.scrape_trending_page("US")
   res.render("index.ejs");
 });
 app.get("/search", (req, res) => {
