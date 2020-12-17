@@ -23,12 +23,7 @@ app.get("/search", (req, res) => {
       .then(data => {
         res.render("search.ejs", {
           query: query,
-          data: data.items.filter(
-            item =>
-              function(item) {
-                return item.type == "video";
-              }
-          ) // hope to support playlists/channels soon!
+          data: data.items.filter(item => item.type == "video")// hope to support playlists/channels soon!
         });
       })
       .catch(err => res.render("500.ejs"));
