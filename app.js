@@ -21,7 +21,7 @@ app.get("/search", (req, res) => {
   res.set("Cache-Control", "max-age=604800"); // 1 week
   var query = req.query.q;
   if (!query) {
-    res.render("400.ejs", { message: "Please provide a query string." });
+    res.render("400.ejs", { message: "Please provide a search term" });
   } else {
     const results = ytsr(query)
       .then(data => {
@@ -35,7 +35,7 @@ app.get("/search", (req, res) => {
 });
 app.get("/watch/:id", (req, res) => {
   var id = req.params.id;
-  res.set("Cache-Control", "max-age=7200"); // 2 Hours, links only last about 6
+  res.set("Cache-Control", "max-age=14400"); // 4 Hours, links only last about 6
   if (!id || !ytdl.validateID(id)) {
     res.render("404.ejs");
   }
