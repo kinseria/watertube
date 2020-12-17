@@ -92,9 +92,9 @@ app.get("/captionsproxy", (req, res) => {
 });
 app.get("/autocomplete", (req, res) => {
   if (!req.query.q) {
-    res.render("400.ejs", { message: "Please provide a search term" }).status(400)
+    res.json([])
   } else {
-    youtubeSuggest(req.query.q || "").then(function(results) {
+    youtubeSuggest(req.query.q).then(function(results) {
       res.json(results || []);
     });
   }
