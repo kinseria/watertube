@@ -10,8 +10,7 @@ const ytrend = require("yt-trending-scraper");
 const execSync = require("child_process").execSync;
 const youtubeSuggest = require("youtube-suggest");
 const ytch = require("yt-channel-info");
-const { createProxyMiddleware } = require('http-proxy-middleware');
-
+const rewrite = require("express-urlrewrite")
 function captions(info) {
   if (info.player_response.captions) {
     return info.player_response.captions.playerCaptionsTracklistRenderer
@@ -24,7 +23,8 @@ function captions(info) {
 app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-app.use('/captionsproxy', createProxyMiddleware({ target: 'https://youtube.com', changeOrigin: true }));
+app.use(rewrite('/captionsproxy/*', '/youtube.com/*'));
+
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });

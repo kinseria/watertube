@@ -20,7 +20,7 @@
     "yt-comment-scraper": "^1.3.10",
     "yt-channel-info": "^1.1.4",
     "youtube-suggest": "^1.1.0",
-    "http-proxy-middleware": "^1.0.6"
+    "express-urlrewrite": "^1.3.0"
   },
   "engines": {
     "node": "12.x"
