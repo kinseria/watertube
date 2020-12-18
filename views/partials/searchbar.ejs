@@ -12,6 +12,7 @@ $('#searchbar').on('input', async function() {
  
  $( "#searchbar" ).autocomplete({
       delay:0,
+      minLength:1,
       source: data
     });
 });

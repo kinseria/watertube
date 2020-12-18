@@ -10,7 +10,6 @@ const ytrend = require("yt-trending-scraper");
 const execSync = require("child_process").execSync;
 const youtubeSuggest = require("youtube-suggest");
 const ytch = require("yt-channel-info");
-const { createProxyMiddleware } = require("http-proxy-middleware");
 
 function captions(info) {
   if (info.player_response.captions) {
@@ -24,15 +23,6 @@ function captions(info) {
 app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-app.use(
-  "/api",
-  createProxyMiddleware({
-    target: "http://youtube.com",
-    changeOrigin: false,
-
-    secure: false
-  })
-);
 
 app.get("/", (req, res) => {
   res.render("index.ejs");
@@ -70,6 +60,7 @@ app.get("/search", (req, res) => {
       .then(data => {
         res.render("search.ejs", {
           query: query,
+          
           data: data.items.filter(item => item.type == "video") // hope to support playlists soon!
         });
       })
