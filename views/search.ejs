@@ -19,10 +19,12 @@
     <% if (data[i].type == "video") { %> 
       <img src="<%= data[i].bestThumbnail.url %>" width="320" height="180"><br>
       <% } %>
-      <a href="<% if data[i].type == "video" { %>/watch/<%= data[i].id %><% } %><% if data[i].type == "channel" { %>/channel/<%= data[i].channelID %><% } %>"><%= data[i].title %></a>
+      <% if (data[i].type == "video") { %><a href="/watch/<%= data[i].id %>"><%= data[i].title %></a><% } %>
+      <% if (data[i].type == "channel") { %><a href="/channel/<%= data[i].channelID %>"><%= data[i].name %></a><% } %>
+      
     </h4>
     <p>
-     <% if (data[i].type == "video") { %> <%= data[i].description %> &bull; <%= data[i].uploadedAt %> &bull; Uploaded by <%= data[i].author.name %><% } %>
+     <% if (data[i].type == "video") { %> <%= data[i].description %> &bull; <%= data[i].uploadedAt %> &bull; Uploaded by <%= data[i].author.name %> &bull; <%= data[i].views %> views. <% } %>
     </p>
     <% i++; } %>
   </body>

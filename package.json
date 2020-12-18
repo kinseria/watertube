@@ -10,7 +10,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "ejs": "^3.1.5",
-    "ytdl-core": "^4.1.5",
+    "ytdl-core": "^4.2.0",
     "ytsr": "^3.0.0",
     "anchorme": "^2.1.2",
     "js-string-escape": "^1.0.1",

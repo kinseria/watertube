@@ -39,7 +39,8 @@ app.get("/channel/:id", (req, res) => {
           res.render(
             "channel.ejs",
             Object.assign(info, {
-              videos: videos.items.filter(item => item.type == "video")
+              videos: videos.items.filter(item => item.type == "video"),
+              anchorme: anchorme
             })
           );
         })
@@ -55,14 +56,18 @@ app.get("/search", (req, res) => {
   res.set("Cache-Control", "max-age=604800"); // 1 week
   var query = req.query.q;
   if (!query) {
-    res.render("400.ejs", { message: "Please provide a search term" }).status(400)
+    res
+      .render("400.ejs", { message: "Please provide a search term" })
+      .status(400);
   } else {
     const results = ytsr(query)
       .then(data => {
         res.render("search.ejs", {
           query: query,
 
-          data: data.items.filter(item => item.type == "video") // hope to support channels/playlists soon!
+          data: data.items.filter(
+            item => item.type == "video" || item.type == "channel"
+          ) // hope to support channels soon!
         });
       })
       .catch(err => res.render("500.ejs"));
