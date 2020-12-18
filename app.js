@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -9,6 +10,7 @@ const strEscape = require("js-string-escape");
 const ytrend = require("yt-trending-scraper");
 const youtubeSuggest = require("youtube-suggest");
 const ytch = require("yt-channel-info");
+const config = require("./config.js");
 
 function captions(info) {
   if (info.player_response.captions) {
@@ -59,7 +61,7 @@ app.get("/search", (req, res) => {
       .then(data => {
         res.render("search.ejs", {
           query: query,
-          
+
           data: data.items.filter(item => item.type == "video") // hope to support playlists soon!
         });
       })
@@ -84,7 +86,15 @@ app.get("/watch/:id", (req, res) => {
         views: info.videoDetails.viewCount,
         author: info.videoDetails.author.name,
         strEscape: strEscape,
-        captions: captions(info)
+        captions: captions(info),
+        url: `${config.baseUrl}/watch/${id}`,
+        truncate: function(str, cutoff, replace) {
+          if (str.length >= cutoff) {
+            return str.slice(0, cutoff) + replace;
+          } else {
+            return str;
+          }
+        }
       });
     })
     .catch(err => {

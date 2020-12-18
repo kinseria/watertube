@@ -17,7 +17,8 @@
     "yt-trending-scraper": "^1.0.4",
     "yt-comment-scraper": "^1.3.10",
     "yt-channel-info": "^1.1.4",
-    "youtube-suggest": "^1.1.0"
+    "youtube-suggest": "^1.1.0",
+    "dotenv": "^8.2.0"
   },
   "engines": {
     "node": "12.x"
