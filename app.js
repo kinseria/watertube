@@ -90,7 +90,12 @@ app.get("/watch/:id", (req, res) => {
         url: `${config.baseUrl}/watch/${id}`,
         truncate: function(str, cutoff, replace) {
           if (str.length >= cutoff) {
-            return str.slice(0, cutoff).replace(/\n/gm, " ").replace(/  /gm, " ") + replace;
+            return (
+              str
+                .slice(0, cutoff)
+                .replace(/\n/gm, " ")
+                .replace(/  /gm, " ") + replace
+            );
           } else {
             return str.replace(/\n/gm, " ").replace(/  /gm, " ");
           }
@@ -123,12 +128,16 @@ app.get("/download/:id", (req, res) => {
 });
 
 app.get("/autocomplete", (req, res) => {
-  if (!req.query.q) {
+  try {
+    if (!req.query.q) {
+      res.json([]);
+    } else {
+      youtubeSuggest(req.query.q).then(function(results) {
+        res.json(results.length != 0 ? results : [req.query.q]);
+      });
+    }
+  } catch (e) {
     res.json([]);
-  } else {
-    youtubeSuggest(req.query.q).then(function(results) {
-      res.json(results.length > 0 ? [] : [req.query.q]);
-    });
   }
 });
 app.get("/*", (req, res) => {

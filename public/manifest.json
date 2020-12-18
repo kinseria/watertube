@@ -1,0 +1,16 @@
+{
+  "title": "WaterTube",
+  "short_name": "WaterTube",
+  "start_url": "/",
+  "description": "A light and easy to use YouTube client powered by express, water.css, plyr, and ytdl-core.",
+  "icons": [
+    {
+      "src": "https://cdn.glitch.com/4288e12c-163a-4980-85d2-1d666db9e743%2Fsea.png?v=1608302000038",
+      "sizes": "512x512"
+    }
+  ],
+  "theme_color": "#202b38",
+  "background_color": "#202b38",
+  "display": "fullscreen",
+  "related_applications": []
+}
