@@ -25,10 +25,10 @@ app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(
-  "/captionsproxy",
+  "/api",
   createProxyMiddleware({
-    target: "https://youtube.com",
-    changeOrigin: true,
+    target: "http://youtube.com",
+    changeOrigin: false,
     prependPath: false
   })
 );
