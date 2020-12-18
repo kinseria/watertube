@@ -24,6 +24,7 @@
        <details>
   <summary>Videos:</summary>
         <% var i = 0; while (i < videos.length) {%>
+         <img src="<%= videos[i].videoThumbnails[0].url %>" width="320" height="180"><br>
          <a href="/watch/<%= videos[i].videoId %>"><%= videos[i].title %></a>
          <p>
            <%= videos[i].viewCountText %> &bull; Published <%= videos[i].publishedText %>

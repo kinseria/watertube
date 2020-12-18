@@ -8,8 +8,13 @@
   </head>
   <body>
      <h3>
-      <a href="/">WaterTube</a>
+      <a href="/">WaterTube</a>       
     </h3>
+      <% if (data.correctedQuery && data.correctedQuery !== query ) { %>
+           <p>
+             Did you mean <i><b><%= data.correctedQuery %></b></i> 
+            </p>
+           <% } %>
     <h1>
       Results for: <%= query %>
     </h1>
