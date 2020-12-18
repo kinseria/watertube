@@ -122,7 +122,7 @@ app.get("/autocomplete", (req, res) => {
     res.json([]);
   } else {
     youtubeSuggest(req.query.q).then(function(results) {
-      res.json(results || []);
+      res.json(results.length > 0 ? [] : [req.query.q]);
     });
   }
 });
@@ -130,6 +130,4 @@ app.get("/*", (req, res) => {
   // 404 page
   res.render("404.ejs");
 });
-const listener = app.listen(process.env.PORT, () => {
-  console.log("Your app is listening on port " + listener.address().port);
-});
+app.listen(3000)
