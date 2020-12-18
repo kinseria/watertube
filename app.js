@@ -11,7 +11,8 @@ const ytrend = require("yt-trending-scraper");
 const youtubeSuggest = require("youtube-suggest");
 const ytch = require("yt-channel-info");
 const config = require("./config.js");
-const compression = require('compression')
+const compression = require("compression");
+const ffmpeg = require("fluent-ffmpeg");
 
 function captions(info) {
   if (info.player_response.captions) {
@@ -25,6 +26,7 @@ function captions(info) {
 app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.use(compression());
 
 app.get("/", (req, res) => {
   res.render("index.ejs");
@@ -112,6 +114,19 @@ app.get("/watch/:id", (req, res) => {
     .catch(err => {
       res.render("404.ejs");
     });
+});
+app.get("/listen/:id", (req, res) => {
+  var id = req.params.id;
+  res.set("Cache-Control", "max-age=14400"); // 4 Hours, links only last about 6
+  if (!id || !ytdl.validateID(id)) {
+    res.render("404.ejs");
+  }
+  ytdl(id, {
+    quality: "highestaudio"
+  }).pipe(
+    res,
+    { end: true }
+  );
 });
 app.get("/download/:id", (req, res) => {
   var id = req.params.id;

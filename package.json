@@ -19,7 +19,8 @@
     "yt-channel-info": "^1.1.4",
     "youtube-suggest": "^1.1.0",
     "dotenv": "^8.2.0",
-    "compression": "^1.7.4"
+    "compression": "^1.7.4",
+    "fluent-ffmpeg": "^2.1.2"
   },
   "engines": {
     "node": "12.x"

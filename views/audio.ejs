@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.6.3/dist/plyr.min.css">
+<!-- Primary Meta Tags -->
+<meta name="title" content="<%- title %>">
+<meta name="description" content="<%- truncate(description || "", 155, "...") %>">
+<meta name="theme-color" content="#202b38">
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="<%- url %>">
+<meta property="og:title" content="<%- title %>">
+<meta property="og:description" content="<%- truncate(description || "", 155, "...") %>">
+<meta property="og:image" content="<%- thumbnail %>">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="<%- url %>">
+<meta property="twitter:title" content="<%- title %>">
+<meta property="twitter:description" content="<%- truncate(description || "", 155, "...") %>">
+<meta property="twitter:image" content="<%- thumbnail %>">
+<script src="/main.js"></script>
+    
+    <title><%= title %> by <%= author %> | WaterTube </title>
+  </head>
+  <body>
+    <h3>
+      <a href="/">WaterTube</a>
+    </h3>
+     <%- include('partials/searchbar.ejs') %>
+    <h1>
+      <%= title %>
+    </h1>
+    <video id="player" playsinline controls data-poster="<%= thumbnail %>">
+      <% var i = 0; while (i < formats.length) { var video = formats[i] %>
+  <source src="<%= video.url %>" type="<%= video.mimeType.split(";")[0] %>" size="<%= video.qualityLabel.replace("p","") %>"/>
+      <% i++; } %>
+  </video>
+      <details>
+  <summary>Info:</summary>
+  <p>
+    Uploaded by <%= author %><br>
+    Views: <%= views %>
+  </p>
+    </details>
+   <details>
+  <summary>Description:</summary>
+  <p style="word-wrap: break-word;white-space: pre;white-space: -moz-pre-wrap;white-space: pre-wrap;"><%- anchorme(description || "No description provided...") %></p>
+</details>
+      <details>
+  <summary>Related Videos:</summary>
+    <% var i = 0; while (i < related_videos.length) {%>
+  <p>
+    <a href="/watch/<%= related_videos[i].id %>"><%= related_videos[i].title %></a>
+    <br><%= related_videos[i].author.name %> &bull; <%= related_videos[i].short_view_count_text %> views</p>
+      <% i++; }  %>
+</details>
+
+   <footer>
+     <script src="https://cdn.jsdelivr.net/npm/plyr@3.6.3/dist/plyr.min.js"></script>
+    <script>      
+  const player = new window.Plyr('#player', {
+  title: "<%- strEscape(title) %>",
+  keyboard: { focused: true, global: true },
+   });
+<% if (typeof startTime === "string" && !isNaN(startTime)) { %>
+      player.currentTime = startTime
+<% } %>
+</script>
+    </footer> 
+  </body>
+</html>
