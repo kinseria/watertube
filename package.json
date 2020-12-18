@@ -1,7 +1,7 @@
 {
   "name": "watertube",
   "version": "0.0.1",
-  "description": "A YouTube client built with Node.js, ytdl-core and water.css",
+  "description": "A YouTube client built with Node.js, ytdl-core, plyr, and water.css",
   "main": "app.js",
   "private": true,
   "scripts": {
