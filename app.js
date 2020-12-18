@@ -29,7 +29,8 @@ app.use(
   createProxyMiddleware({
     target: "http://youtube.com",
     changeOrigin: false,
-    prependPath: false
+  
+    secure:false
   })
 );
 
