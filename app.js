@@ -76,7 +76,7 @@ app.get("/search", (req, res) => {
       .catch(err => res.render("500.ejs"));
   }
 });
-app.get("/watch/:id", (req, res) => {
+app.get("/watch/:id", async function(req, res) {
   var id = req.params.id;
   res.set("Cache-Control", "max-age=14400"); // 4 Hours, links only last about 6
   if (!id || !ytdl.validateID(id)) {
@@ -96,7 +96,7 @@ app.get("/watch/:id", (req, res) => {
         strEscape: strEscape,
         captions: captions(info),
         url: `${config.baseUrl}/watch/${id}`,
-        id:id,
+        id: id,
         truncate: function(str, cutoff, replace) {
           if (str.length >= cutoff) {
             return (
@@ -136,7 +136,7 @@ app.get("/listen/:id", (req, res) => {
         strEscape: strEscape,
         captions: captions(info),
         url: `${config.baseUrl}/watch/${id}`,
-        id:id,
+        id: id,
         truncate: function(str, cutoff, replace) {
           if (str.length >= cutoff) {
             return (
