@@ -17,15 +17,6 @@
       <% var i = 0; while (i < formats.length) { var video = formats[i] %>
   <source src="<%= video.url %>" type="<%= video.mimeType.split(";")[0] %>" size="<%= video.qualityLabel.replace("p","") %>"/>
       <% i++; } %>
-      
-      <% var i = 0; while (i < captions.length) {%>
-       <track
-              kind="captions"
-              label="<%= captions[i].name.simpleText %>"
-              srclang="<%= captions[i].languageCode %>"
-              src="/api<%- new URL(captions[i].baseUrl).pathname.replace("/api", "") %><%- new URL(captions[i].baseUrl).search %>&fmt=vtt"
-            />
-      <% i++; }%>
   </video>
       <details>
   <summary>Info:</summary>
