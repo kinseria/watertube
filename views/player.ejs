@@ -8,20 +8,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/plyr@3.6.3/dist/plyr.min.css">
 <!-- Primary Meta Tags -->
 <meta name="title" content="<%- title %>">
-<meta name="description" content="<%- truncate(description, 155, "...") %>">
+<meta name="description" content="<%- truncate(description || "", 155, "...") %>">
 <meta name="theme-color" content="#202b38">
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="<%- url %>">
 <meta property="og:title" content="<%- title %>">
-<meta property="og:description" content="<%- truncate(description, 155, "...") %>">
+<meta property="og:description" content="<%- truncate(description || "", 155, "...") %>">
 <meta property="og:image" content="<%- thumbnail %>">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="<%- url %>">
 <meta property="twitter:title" content="<%- title %>">
-<meta property="twitter:description" content="<%- truncate(description, 155, "...") %>">
+<meta property="twitter:description" content="<%- truncate(description || "", 155, "...") %>">
 <meta property="twitter:image" content="<%- thumbnail %>">
 <script src="/main.js"></script>
     
@@ -49,7 +49,7 @@
     </details>
    <details>
   <summary>Description:</summary>
-  <p style="word-wrap: break-word;white-space: pre;white-space: -moz-pre-wrap;white-space: pre-wrap;"><%- anchorme(description) %></p>
+  <p style="word-wrap: break-word;white-space: pre;white-space: -moz-pre-wrap;white-space: pre-wrap;"><%- anchorme(description || "No description provided...") %></p>
 </details>
       <details>
   <summary>Related Videos:</summary>
