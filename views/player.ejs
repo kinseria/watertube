@@ -23,7 +23,7 @@
               kind="captions"
               label="<%= captions[i].name.simpleText %>"
               srclang="<%= captions[i].languageCode %>"
-              src="/captionsproxy?url=<%- captions[i].baseUrl %>&fmt=vtt"
+              src="/captionsproxy<%- new URL(captions[i].baseUrl).pathname %><%- new URL(captions[i].baseUrl).search %>&fmt=vtt"
             />
       <% i++; }%>
   </video>

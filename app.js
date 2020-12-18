@@ -24,7 +24,7 @@ function captions(info) {
 app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
-
+app.use('/captionsproxy', createProxyMiddleware({ target: 'https://youtube.com', changeOrigin: true }));
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
@@ -113,11 +113,7 @@ app.get("/download/:id", (req, res) => {
       res.render("404.ejs");
     });
 });
-app.get("/captionsproxy", (req, res) => {
-  // Video captions won't load without a "proxy" :/
-  res.set("content-type", "text/vtt");
-  res.send(execSync(`curl -sS ${req.query.url}`).toString());
-});
+
 app.get("/autocomplete", (req, res) => {
   if (!req.query.q) {
     res.json([]);
