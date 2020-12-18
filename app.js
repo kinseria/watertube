@@ -80,7 +80,7 @@ app.get("/watch/:id", (req, res) => {
       res.render("player.ejs", {
         title: info.videoDetails.title,
         formats: info.player_response.streamingData.formats,
-        description: anchorme(info.videoDetails.description.simpleText),
+        description: info.videoDetails.description.simpleText,
         related_videos: info.related_videos,
         thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,
         views: info.videoDetails.viewCount,
@@ -90,11 +90,12 @@ app.get("/watch/:id", (req, res) => {
         url: `${config.baseUrl}/watch/${id}`,
         truncate: function(str, cutoff, replace) {
           if (str.length >= cutoff) {
-            return str.slice(0, cutoff) + replace;
+            return str.slice(0, cutoff).replace(/\n/gm, " ").replace(/  /gm, " ") + replace;
           } else {
-            return str;
+            return str.replace(/\n/gm, " ").replace(/  /gm, " ");
           }
-        }
+        },
+        anchorme: anchorme
       });
     })
     .catch(err => {
