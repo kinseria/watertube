@@ -1,11 +1,9 @@
 {
-  "//1": "describes your app and its dependencies",
-  "//2": "https://docs.npmjs.com/files/package.json",
-  "//3": "updating this file will download and update your packages",
-  "name": "hello-express",
+  "name": "watertube",
   "version": "0.0.1",
-  "description": "A simple Node app built on Express, instantly up and running.",
-  "main": "server.js",
+  "description": "A YouTube client built with Node.js, ytdl-core and water.css",
+  "main": "app.js",
+  "private": true,
   "scripts": {
     "start": "node app.js"
   },
@@ -19,19 +17,19 @@
     "yt-trending-scraper": "^1.0.4",
     "yt-comment-scraper": "^1.3.10",
     "yt-channel-info": "^1.1.4",
-    "youtube-suggest": "^1.1.0",
-    "http-proxy-middleware": "^1.0.6"
+    "youtube-suggest": "^1.1.0"
   },
   "engines": {
     "node": "12.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/hello-express"
+    "url": "https://glitch.com/edit/#!/watertube"
   },
   "license": "MIT",
   "keywords": [
     "node",
-    "glitch",
-    "express"
+    "youtube",
+    "watercss",
+    "ytdl-core"
   ]
 }
