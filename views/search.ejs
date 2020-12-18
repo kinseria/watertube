@@ -31,6 +31,7 @@
     <p>
      <% if (data[i].type == "video") { %> <%= data[i].description %> &bull; <%= data[i].uploadedAt %> &bull; Uploaded by <%= data[i].author.name %> &bull; <%= data[i].views %> views. <% } %>
     </p>
+    <% if (data[i].type == "video") { %><p><a href="/listen/<%= data[i].id %>"><i class="fas fa-headphones"></i>&nbsp;Listen as audio.</a></p><% } %>
     <% i++; } %>
   </body>
 </html>
