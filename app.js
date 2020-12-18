@@ -85,11 +85,10 @@ app.get("/watch/:id", async function(req, res) {
   ytdl
     .getInfo(id)
     .then(info => {
-    console.log(info.videoDetails.description.simpleText)
       res.render("player.ejs", {
         title: info.videoDetails.title,
         formats: info.player_response.streamingData.formats,
-        description: info.videoDetails.description.simpleText,
+        description: info.videoDetails.description,
         related_videos: info.related_videos,
         thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,
         views: info.videoDetails.viewCount,
