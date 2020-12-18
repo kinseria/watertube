@@ -12,7 +12,7 @@ const youtubeSuggest = require("youtube-suggest");
 const ytch = require("yt-channel-info");
 const config = require("./config.js");
 const compression = require("compression");
-const ffmpeg = require("fluent-ffmpeg");
+const minifyHTML = require("express-minify-html");
 
 function captions(info) {
   if (info.player_response.captions) {
@@ -27,6 +27,21 @@ app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(compression());
+app.use(
+  minifyHTML({
+    override: true,
+    exception_url: false,
+    htmlMinifier: {
+      removeComments: true,
+      collapseWhitespace: true,
+      collapseBooleanAttributes: true,
+      useShortDoctype: true,
+      collapseWhitespace: true,
+      minifyJS: true,
+      minifyCSS: true
+    }
+  })
+);
 
 app.get("/", (req, res) => {
   res.render("index.ejs");
