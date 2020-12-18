@@ -16,8 +16,10 @@
    <%- include('partials/searchbar.ejs', {query:query || ""}) %>
     <% var i = 0; while(i < data.length){ %>
     <h4>
-    <% if (data[i].type == "video") { %> <img src="<%= data[i].bestThumbnail.url %>" width="320" height="180"><% } %>
-      <a href="/watch/<%= data[i].id %>"><%= data[i].title %></a>
+    <% if (data[i].type == "video") { %> 
+      <img src="<%= data[i].bestThumbnail.url %>" width="320" height="180"><br>
+      <% } %>
+      <a href="<% if data[i].type == "video" { %>/watch/<%= data[i].id %><% } %><% if data[i].type == "channel" { %>/channel/<%= data[i].channelID %><% } %>"><%= data[i].title %></a>
     </h4>
     <p>
      <% if (data[i].type == "video") { %> <%= data[i].description %> &bull; <%= data[i].uploadedAt %> &bull; Uploaded by <%= data[i].author.name %><% } %>
