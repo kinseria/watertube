@@ -7,7 +7,6 @@ const https = require("https"); // Mainly for downloads
 const ytsr = require("ytsr");
 const strEscape = require("js-string-escape");
 const ytrend = require("yt-trending-scraper");
-const execSync = require("child_process").execSync;
 const youtubeSuggest = require("youtube-suggest");
 const ytch = require("yt-channel-info");
 
