@@ -11,6 +11,7 @@ const ytrend = require("yt-trending-scraper");
 const youtubeSuggest = require("youtube-suggest");
 const ytch = require("yt-channel-info");
 const config = require("./config.js");
+const compression = require('compression')
 
 function captions(info) {
   if (info.player_response.captions) {
