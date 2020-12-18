@@ -34,11 +34,9 @@
     <h1>
       <%= title %>
     </h1>
-    <video id="player" playsinline controls data-poster="<%= thumbnail %>">
-      <% var i = 0; while (i < formats.length) { var video = formats[i] %>
-  <source src="<%= video.url %>" type="<%= video.mimeType.split(";")[0] %>" size="<%= video.qualityLabel.replace("p","") %>"/>
-      <% i++; } %>
-  </video>
+<audio id="player" controls>
+  <source src="/stream/<%- id %>" type="audio/mp3" />
+</audio>
       <details>
   <summary>Info:</summary>
   <p>
@@ -54,7 +52,7 @@
   <summary>Related Videos:</summary>
     <% var i = 0; while (i < related_videos.length) {%>
   <p>
-    <a href="/watch/<%= related_videos[i].id %>"><%= related_videos[i].title %></a>
+    <a href="/listen/<%= related_videos[i].id %>"><%= related_videos[i].title %></a>
     <br><%= related_videos[i].author.name %> &bull; <%= related_videos[i].short_view_count_text %> views</p>
       <% i++; }  %>
 </details>

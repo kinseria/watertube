@@ -96,6 +96,7 @@ app.get("/watch/:id", (req, res) => {
         strEscape: strEscape,
         captions: captions(info),
         url: `${config.baseUrl}/watch/${id}`,
+        id:id,
         truncate: function(str, cutoff, replace) {
           if (str.length >= cutoff) {
             return (
@@ -116,6 +117,46 @@ app.get("/watch/:id", (req, res) => {
     });
 });
 app.get("/listen/:id", (req, res) => {
+  var id = req.params.id;
+  res.set("Cache-Control", "max-age=14400"); // 4 Hours, links only last about 6
+  if (!id || !ytdl.validateID(id)) {
+    res.render("404.ejs");
+  }
+  ytdl
+    .getInfo(id)
+    .then(info => {
+      res.render("audio.ejs", {
+        title: info.videoDetails.title,
+        formats: info.player_response.streamingData.formats,
+        description: info.videoDetails.description.simpleText,
+        related_videos: info.related_videos,
+        thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,
+        views: info.videoDetails.viewCount,
+        author: info.videoDetails.author.name,
+        strEscape: strEscape,
+        captions: captions(info),
+        url: `${config.baseUrl}/watch/${id}`,
+        id:id,
+        truncate: function(str, cutoff, replace) {
+          if (str.length >= cutoff) {
+            return (
+              str
+                .slice(0, cutoff)
+                .replace(/\n/gm, " ")
+                .replace(/  /gm, " ") + replace
+            );
+          } else {
+            return str.replace(/\n/gm, " ").replace(/  /gm, " ");
+          }
+        },
+        anchorme: anchorme
+      });
+    })
+    .catch(err => {
+      res.render("404.ejs");
+    });
+});
+app.get("/stream/:id", (req, res) => {
   var id = req.params.id;
   res.set("Cache-Control", "max-age=14400"); // 4 Hours, links only last about 6
   if (!id || !ytdl.validateID(id)) {
