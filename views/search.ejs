@@ -16,7 +16,7 @@
       <a href="/watch/<%= data[i].id %>"><%= data[i].title %></a>
     </h4>
     <p>
-      <%= data[i].description %> &bull; <%= data[i].uploadedAt %> &bull; Uploaded by <%= data[i].author.name %>
+     <% if (data[i].type !== "channel") { %> <%= data[i].description %> &bull; <%= data[i].uploadedAt %> &bull; Uploaded by <%= data[i].author.name %><% } %>
     </p>
     <% i++; } %>
   </body>

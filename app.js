@@ -31,8 +31,20 @@ app.get("/channel/:id", (req, res) => {
   var id = req.params.id;
   ytch
     .getChannelInfo(id)
-    .then(response => {
-      res.render("channel.ejs", response);
+    .then(info => {
+      ytch
+        .getChannelVideos(id, "newest")
+        .then(videos => {
+          res.render(
+            "channel.ejs",
+            Object.assign(info, {
+              videos: videos.items.filter(item => item.type === "video")
+            })
+          );
+        })
+        .catch(err => {
+          console.log(err);
+        });
     })
     .catch(err => {
       res.render("500.ejs");
