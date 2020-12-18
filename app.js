@@ -10,6 +10,7 @@ const ytrend = require("yt-trending-scraper");
 const execSync = require("child_process").execSync;
 const youtubeSuggest = require("youtube-suggest");
 const ytch = require("yt-channel-info");
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 function captions(info) {
   if (info.player_response.captions) {
