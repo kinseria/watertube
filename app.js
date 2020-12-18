@@ -38,7 +38,7 @@ app.get("/channel/:id", (req, res) => {
           res.render(
             "channel.ejs",
             Object.assign(info, {
-              videos: videos.items.filter(item => item.type === "video")
+              videos: videos.items.filter(item => item.type == "video")
             })
           );
         })

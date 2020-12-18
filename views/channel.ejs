@@ -19,8 +19,11 @@
 </details>
        <details>
   <summary>Videos:</summary>
-        <% var i = 0; while (i < items.length) {%>
-         
+        <% var i = 0; while (i < videos.length) {%>
+         <a href="/watch/<%= videos[i].videoId %>"><%= videos[i].title %></a>
+         <p>
+           <%= videos[i].viewCountText %> &bull; Published <%= videos[i].publishedText %>
+         </p>
       <% i++; }%>
 </details>
   </body>

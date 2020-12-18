@@ -10,6 +10,7 @@ $('#searchbar').on('input', async function() {
  var data = await response.json()
  
  $( "#searchbar" ).autocomplete({
+      delay:0,
       source: data
     });
 });
