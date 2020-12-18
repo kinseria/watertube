@@ -9,6 +9,8 @@ const strEscape = require("js-string-escape");
 const ytrend = require("yt-trending-scraper");
 const execSync = require("child_process").execSync;
 const youtubeSuggest = require("youtube-suggest");
+const ytch = require("yt-channel-info");
+
 function captions(info) {
   if (info.player_response.captions) {
     return info.player_response.captions.playerCaptionsTracklistRenderer
@@ -25,17 +27,30 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
   res.render("index.ejs");
 });
+app.get("/channel/:id", (req, res) => {
+  var id = req.params.id;
+  ytch
+    .getChannelInfo(id)
+    .then(response => {
+      res.render("channel.ejs", response);
+    })
+    .catch(err => {
+      res.render("500.ejs");
+    });
+});
 app.get("/search", (req, res) => {
   res.set("Cache-Control", "max-age=604800"); // 1 week
   var query = req.query.q;
   if (!query) {
-    res.json([])
+    res.json([]);
   } else {
     const results = ytsr(query)
       .then(data => {
         res.render("search.ejs", {
           query: query,
-          data: data.items.filter(item => item.type == "video") // hope to support playlists/channels soon!
+          data: data.items.filter(
+            item => item.type == "video" || item.type == "channel"
+          ) // hope to support playlists soon!
         });
       })
       .catch(err => res.render("500.ejs"));
@@ -92,7 +107,7 @@ app.get("/captionsproxy", (req, res) => {
 });
 app.get("/autocomplete", (req, res) => {
   if (!req.query.q) {
-    res.json([])
+    res.json([]);
   } else {
     youtubeSuggest(req.query.q).then(function(results) {
       res.json(results || []);
