@@ -29,8 +29,8 @@ app.use(
   createProxyMiddleware({
     target: "http://youtube.com",
     changeOrigin: false,
-  
-    secure:false
+
+    secure: false
   })
 );
 
@@ -70,9 +70,7 @@ app.get("/search", (req, res) => {
       .then(data => {
         res.render("search.ejs", {
           query: query,
-          data: data.items.filter(
-            item => item.type == "video" || item.type == "channel"
-          ) // hope to support playlists soon!
+          data: data.items.filter(item => item.type == "video") // hope to support playlists soon!
         });
       })
       .catch(err => res.render("500.ejs"));
