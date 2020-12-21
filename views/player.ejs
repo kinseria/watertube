@@ -16,7 +16,7 @@
 <meta property="og:description" content="<%- truncate(description || "", 155, "...") %>">
 <meta property="og:image" content="<%- thumbnail %>">
 <meta property="og:video:type" content="video/mp4">
-<meta property="og:video" content="<%= formats[0].url %>">
+<meta property="og:video" content="<%- formats[0].url %>">
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image">
@@ -24,7 +24,7 @@
 <meta property="twitter:title" content="<%- title %>">
 <meta property="twitter:description" content="<%- truncate(description || "", 155, "...") %>">
 <meta property="twitter:image" content="<%- thumbnail %>">
-<meta name="twitter:player" content="<%= formats[0].url %>">
+<meta name="twitter:player" content="<%- formats[0].url %>">
 <meta name="twitter:player:width" content="320">
 <meta name="twitter:player:height" content="180">
 <meta name="twitter:player:stream" content="<%- formats[0].url %>">
