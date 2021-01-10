@@ -10,7 +10,7 @@ const strEscape = require("js-string-escape");
 const ytrend = require("yt-trending-scraper");
 const youtubeSuggest = require("youtube-suggest");
 const ytch = require("yt-channel-info");
-const config = require("./config.js");
+const config = require(__dirname + "/config.js");
 const compression = require("compression");
 const minifyHTML = require("express-minify-html");
 
@@ -23,7 +23,7 @@ function captions(info) {
   }
 }
 
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(compression());
