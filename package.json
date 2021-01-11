@@ -1,17 +1,18 @@
 {
   "name": "watertube",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A YouTube client built with Node.js, ytdl-core, plyr, and water.css",
-  "main": "app.js",
+  "main": "electron.js",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "build": "electron-packager ./ watertube --all"
   },
   "dependencies": {
     "express": "^4.17.1",
     "ejs": "^3.1.5",
-    "ytdl-core": "^4.2.0",
-    "ytsr": "^3.0.0",
+    "ytdl-core": "^4.4.1",
+    "ytsr": "^3.2.0",
     "anchorme": "^2.1.2",
     "js-string-escape": "^1.0.1",
     "yt-trending-scraper": "^1.0.4",
@@ -20,7 +21,12 @@
     "youtube-suggest": "^1.1.0",
     "dotenv": "^8.2.0",
     "compression": "^1.7.4",
-    "express-minify-html": "^0.12.0"
+    "express-minify-html": "^0.12.0",
+    "escape-html": "^1.0.3"
+  },
+  "devDependencies": {
+    "electron-packager": "^15.2.0",
+    "electron-prebuilt-compile": "^8.2.0"
   },
   "engines": {
     "node": "12.x"

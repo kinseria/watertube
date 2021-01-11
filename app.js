@@ -124,7 +124,8 @@ app.get("/watch/:id", async function(req, res) {
             return str.replace(/\n/gm, " ").replace(/  /gm, " ");
           }
         },
-        anchorme: anchorme
+        anchorme: anchorme,
+        escape: require("escape-html")
       });
     })
     .catch(err => {
@@ -164,7 +165,8 @@ app.get("/listen/:id", (req, res) => {
             return str.replace(/\n/gm, " ").replace(/  /gm, " ");
           }
         },
-        anchorme: anchorme
+        anchorme: anchorme,
+        escape: require("escape-html")
       });
     })
     .catch(err => {
