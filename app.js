@@ -223,4 +223,4 @@ app.get("/*", (req, res) => {
   // 404 page
   res.render("404.ejs");
 });
-app.listen(process.env.PORT || 3000);
+app.listen(process.argv.slice(2)[0] || process.env.PORT || 3000);
