@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "start": "node app.js",
-    "build": "electron-packager ./ watertube --all"
+    "electron-build": "electron-packager ./ watertube --all"
   },
   "dependencies": {
     "express": "^4.17.1",
