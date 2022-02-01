@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
     <%- include('partials/metatags.ejs') %>
+    
   </head>
   <body>
      <h3>
@@ -29,7 +30,7 @@
       
     </h4>
     <p>
-     <% if (data[i].type == "video") { %> <%= data[i].description %> &bull; <%= data[i].uploadedAt %> &bull; Uploaded by <%= data[i].author.name %> &bull; <%= data[i].views %> views. <% } %>
+     <% if (data[i].type == "video") { %> <%= data[i].uploadedAt %> &bull; Uploaded by <%= data[i].author.name %> &bull; <%= data[i].views?data[i].views.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","):"Unable to fetch views" %> views. <% } %>
     </p>
     <% if (data[i].type == "video") { %><p><a href="/listen/<%= data[i].id %>"><i class="fas fa-headphones"></i>&nbsp;Listen as audio.</a></p><% } %>
     <% i++; } %>

@@ -3,7 +3,8 @@
   <head>
      <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/water.css">
+    <%- include('partials/themeselector.ejs') %>
+
     <link rel="stylesheet" href="/plyr.css">
 <!-- Primary Meta Tags -->
 <meta name="title" content="<%- title %>">
@@ -41,8 +42,8 @@
   <summary>Info:</summary>
   <p>
     Uploaded by <%= author %><br>
-    Views: <%= views %><br>
-    Up next: <%= related_videos[0].title %> by <%= related_videos[0].author.name %> with <%= related_videos[0].short_view_count_text %> views.
+    Views: <%= views.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") %><br>
+    Up next: <%= related_videos[0].title %> by <%= related_videos[0].author.name %> with <%= related_videos[0].short_view_count_text.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") %> views.
   </p>
     </details>
    <details>
@@ -65,10 +66,7 @@
   title: "<%- strEscape(title) %>",
   keyboard: { focused: true, global: true },
    });
-<% if (typeof startTime === "string" && !isNaN(startTime)) { %>
-      player.currentTime = startTime;
-      player.play();
-<% } %>
+
 player.on("ended", event => {
   window.location.href = "/listen/<%= related_videos[0].id %>"
 });

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/cookies.js"></script>
+    <%- include('partials/themeselector.ejs') %>
+    <%- include('partials/metatags.ejs') %>
+    <style>
+      .videos {
+        display: grid;
+        grid-gap: 50px 50px;
+  grid-template-columns: auto auto auto;
+      }
+    </style>
+  </head>
+  <body>
+  
+        <h3>
+            <a href="/">WaterTube</a> - Configuration
+        </h3>
+    
+    <%- include('partials/searchbar.ejs') %>
+    <main><br>
+      <h3>Set your country</h3>
+      <%- include('partials/countryselector.ejs') %>
+     <h3>
+         Choose my theme
+     </h3>
+     <select id="theme">
+        <option value="lightmode">Light</option>
+        <option value="darkmode">Dark</option>
+        <option value="amoled">AMOLED</option>
+    </select>
+    <h3>
+        Choose a video player
+    </h3>
+    <%- include('partials/videoplayer.ejs') %>
+    <select id="player">
+       <option value="browser">Browser</option>
+       <option value="plyr">Plyr</option>
+   </select>
+     <br>
+       
+     <noscript>
+         <p>
+            Looks like you aren't using JavaScript. Configurations won't save/load until you enable JavaScript.
+         </p>
+     </noscript>
+    
+    </main>
+  </body>
+</html>

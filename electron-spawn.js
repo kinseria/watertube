@@ -1,6 +1,6 @@
 const { spawn } = require("child_process");
 
-const cmd = spawn("node", [__dirname + "/app.js","7777"]);
+const cmd = spawn("node", [__dirname + "/app.js", "7777"]);
 
 cmd.stdout.on("data", (data) => {
   console.log(data.toString());

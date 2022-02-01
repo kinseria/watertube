@@ -1,0 +1,21 @@
+<script>
+ if (document.getElementsByTagName("video").length > 0) {
+         if (document.cookie.indexOf("player=plyr") > -1) {
+
+   window.addEventListener('DOMContentLoaded', (event) => {
+    new window.Plyr('#player', {
+  title: "WaterTube",
+  keyboard: { focused: true, global: true },
+   });
+});
+         } 
+            
+    }
+    window.addEventListener('DOMContentLoaded', (event) => {
+        document.getElementById("player").addEventListener("change", function() {
+            Cookies.set("player",this.value)
+        });
+});
+       
+    
+</script>

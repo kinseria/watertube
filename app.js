@@ -13,6 +13,8 @@ const ytch = require("yt-channel-info");
 const config = require(__dirname + "/config.js");
 const compression = require("compression");
 const minifyHTML = require("express-minify-html");
+const request = require("sync-request");
+const cookieParser = require("cookie-parser");
 
 function captions(info) {
   if (info.player_response.captions) {
@@ -27,6 +29,7 @@ app.use(express.static(__dirname + "/public"));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(compression());
+app.use(cookieParser());
 app.use(
   minifyHTML({
     override: true,
@@ -38,36 +41,56 @@ app.use(
       useShortDoctype: true,
       collapseWhitespace: true,
       minifyJS: true,
-      minifyCSS: true
-    }
+      minifyCSS: true,
+    },
   })
 );
 
 app.get("/", (req, res) => {
-  res.render("index.ejs");
+  const parameters = {
+    geoLocation: req.cookies.country || "US",
+    parseCreatorOnRise: false,
+    page: "default",
+  };
+
+  ytrend
+    .scrape_trending_page(parameters)
+    .then((data) => {
+      res.render("index.ejs", {
+        data: data,
+        country: req.cookies.country || "US",
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+// when /settings is requested, render settings.ejs
+app.get("/settings", (req, res) => {
+  res.render("settings.ejs");
 });
 app.get("/channel/:id", (req, res) => {
   var id = req.params.id;
   ytch
     .getChannelInfo(id)
-    .then(info => {
+    .then((info) => {
       ytch
         .getChannelVideos(id, "newest")
-        .then(videos => {
+        .then((videos) => {
           res.render(
             "channel.ejs",
             Object.assign(info, {
-              videos: videos.items.filter(item => item.type == "video"),
-              anchorme: anchorme
+              videos: videos.items.filter((item) => item.type == "video"),
+              anchorme: anchorme,
             })
           );
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     })
-    .catch(err => {
-      res.render("500.ejs");
+    .catch((err) => {
+      res.status(500).render("500.ejs");
     });
 });
 app.get("/search", (req, res) => {
@@ -79,19 +102,19 @@ app.get("/search", (req, res) => {
       .status(400);
   } else {
     const results = ytsr(query)
-      .then(data => {
+      .then((data) => {
         res.render("search.ejs", {
           query: query,
 
           data: data.items.filter(
-            item => item.type == "video" || item.type == "channel"
-          ) // hope to support channels soon!
+            (item) => item.type == "video" || item.type == "channel"
+          ), // hope to support playlists soon!
         });
       })
-      .catch(err => res.render("500.ejs"));
+      .catch((err) => res.render("500.ejs"));
   }
 });
-app.get("/watch/:id", async function(req, res) {
+app.get("/watch/:id", async function (req, res) {
   var id = req.params.id;
   res.set("Cache-Control", "max-age=14400"); // 4 Hours, links only last about 6
   if (!id || !ytdl.validateID(id)) {
@@ -99,36 +122,41 @@ app.get("/watch/:id", async function(req, res) {
   }
   ytdl
     .getInfo(id)
-    .then(info => {
+    .then((info) => {
       res.render("player.ejs", {
         title: info.videoDetails.title,
         formats: info.player_response.streamingData.formats,
         description: info.videoDetails.description,
         related_videos: info.related_videos,
-        thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,
+        thumbnail: info.videoDetails.thumbnails[0].url,
         views: info.videoDetails.viewCount,
         author: info.videoDetails.author.name,
+        rating: JSON.parse(
+          request(
+            "GET",
+            `https://returnyoutubedislikeapi.com/votes?videoId=${id}`
+          ).getBody()
+        ),
+
         strEscape: strEscape,
         captions: captions(info),
         url: `${config.baseUrl}/watch/${id}`,
         id: id,
-        truncate: function(str, cutoff, replace) {
+        truncate: function (str, cutoff, replace) {
           if (str.length >= cutoff) {
             return (
-              str
-                .slice(0, cutoff)
-                .replace(/\n/gm, " ")
-                .replace(/  /gm, " ") + replace
+              str.slice(0, cutoff).replace(/\n/gm, " ").replace(/  /gm, " ") +
+              replace
             );
           } else {
             return str.replace(/\n/gm, " ").replace(/  /gm, " ");
           }
         },
         anchorme: anchorme,
-        escape: require("escape-html")
+        escape: require("escape-html"),
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.render("404.ejs");
     });
 });
@@ -140,36 +168,34 @@ app.get("/listen/:id", (req, res) => {
   }
   ytdl
     .getInfo(id)
-    .then(info => {
+    .then((info) => {
       res.render("audio.ejs", {
         title: info.videoDetails.title,
         formats: info.player_response.streamingData.formats,
         description: info.videoDetails.description.simpleText,
         related_videos: info.related_videos,
-        thumbnail: info.videoDetails.thumbnail.thumbnails[0].url,
+        thumbnail: info.videoDetails.thumbnails[0].url,
         views: info.videoDetails.viewCount,
         author: info.videoDetails.author.name,
         strEscape: strEscape,
         captions: captions(info),
         url: `${config.baseUrl}/watch/${id}`,
         id: id,
-        truncate: function(str, cutoff, replace) {
+        truncate: function (str, cutoff, replace) {
           if (str.length >= cutoff) {
             return (
-              str
-                .slice(0, cutoff)
-                .replace(/\n/gm, " ")
-                .replace(/  /gm, " ") + replace
+              str.slice(0, cutoff).replace(/\n/gm, " ").replace(/  /gm, " ") +
+              replace
             );
           } else {
             return str.replace(/\n/gm, " ").replace(/  /gm, " ");
           }
         },
         anchorme: anchorme,
-        escape: require("escape-html")
+        escape: require("escape-html"),
       });
     })
-    .catch(err => {
+    .catch((err) => {
       res.render("404.ejs");
     });
 });
@@ -180,11 +206,8 @@ app.get("/stream/:id", (req, res) => {
     res.render("404.ejs");
   }
   ytdl(id, {
-    quality: "highestaudio"
-  }).pipe(
-    res,
-    { end: true }
-  );
+    quality: "highestaudio",
+  }).pipe(res, { end: true });
 });
 app.get("/download/:id", (req, res) => {
   var id = req.params.id;
@@ -194,14 +217,15 @@ app.get("/download/:id", (req, res) => {
   res.set("Cache-Control", " max-age=7200");
   ytdl
     .getInfo(id)
-    .then(info => {
-      https.get(info.player_response.streamingData.formats[0].url, function(
-        file
-      ) {
-        file.pipe(res);
-      });
+    .then((info) => {
+      https.get(
+        info.player_response.streamingData.formats[0].url,
+        function (file) {
+          file.pipe(res);
+        }
+      );
     })
-    .catch(err => {
+    .catch((err) => {
       res.render("404.ejs");
     });
 });
@@ -211,7 +235,7 @@ app.get("/autocomplete", (req, res) => {
     if (!req.query.q) {
       res.json([]);
     } else {
-      youtubeSuggest(req.query.q).then(function(results) {
+      youtubeSuggest(req.query.q).then(function (results) {
         res.json(results.length != 0 ? results : [req.query.q]);
       });
     }

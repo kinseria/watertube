@@ -1,0 +1,24 @@
+<noscript>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+</noscript>
+<script>
+    // if the cookie "theme" is set to "lightmode", load lightmode css
+    if (document.cookie.indexOf("theme=lightmode") > -1) {
+        document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">');
+    }
+
+    // otherwise, if "theme" is set to "darkmode", load darkmode css
+    else if (document.cookie.indexOf("theme=darkmode") > -1) {
+        document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">');
+    } else if (document.cookie.indexOf("theme=amoled") > -1) {
+        document.write('<link rel="stylesheet" href="/amoled.css">');
+    }
+    else {
+        // otherwise, load the default css
+        document.write('<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">');
+    }
+if (document.getElementById("theme")){
+    document.getElementById("theme").addEventListener("change", function() {
+        Cookies.set("theme",this.value)
+    });}
+</script>

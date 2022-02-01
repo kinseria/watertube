@@ -3,7 +3,8 @@
   <head>
      <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/water.css">
+    <%- include('partials/themeselector.ejs') %>
+
     <link rel="stylesheet" href="/plyr.css">
 <!-- Primary Meta Tags -->
 <meta name="title" content="<%= title %>">
@@ -35,12 +36,13 @@
   </head>
   <body>
     <h3>
-      <a href="/">WaterTube</a>
+      <a href="/">WaterTube</a> 
     </h3>
      <%- include('partials/searchbar.ejs') %>
     <h1>
       <%= title %>
     </h1>
+    
     <video id="player" playsinline controls data-poster="<%= thumbnail %>">
       <% var i = 0; while (i < formats.length) { var video = formats[i] %>
   <source src="<%= video.url %>" type="<%= video.mimeType.split(";")[0] %>" size="<%= video.qualityLabel.replace("p","") %>"/>
@@ -50,7 +52,9 @@
   <summary>Info:</summary>
   <p>
     Uploaded by <%= author %><br>
-    Views: <%= views %><br>
+    Views: <%= views.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") %><br>
+    Likes: <%- rating.likes.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") %><br>
+    Dislikes: <%- rating.dislikes.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") %><br>
     Up next: <%= related_videos[0].title %> by <%= related_videos[0].author.name %> with <%= related_videos[0].short_view_count_text %> views.
   </p>
     </details>
@@ -66,21 +70,11 @@
     <br><%= related_videos[i].author.name %> &bull; <%= related_videos[i].short_view_count_text %> views</p>
       <% i++; }  %>
 </details>
+<%- include('partials/videoplayer.ejs') %>
 
    <footer>
      <script src="/plyr.js"></script>
     <script>      
-  const player = new window.Plyr('#player', {
-  title: "<%- strEscape(title) %>",
-  keyboard: { focused: true, global: true },
-   });
-<% if (typeof startTime === "string" && !isNaN(startTime)) { %>
-      player.currentTime = startTime;
-      player.play();
-<% } %>
-player.on("ended", event => {
-  window.location.href = "/watch/<%= related_videos[0].id %>"
-});
 </script>
     </footer> 
   </body>

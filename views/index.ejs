@@ -3,20 +3,52 @@
   <head>
      <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css">
+    <%- include('partials/themeselector.ejs') %>
     <%- include('partials/metatags.ejs') %>
+    <style>
+      .videos {
+        display: grid;
+        grid-gap: 50px 50px;
+  grid-template-columns: auto auto auto;
+      }
+     
+      @media screen 
+  and (min-device-width: 0px) 
+  and (max-device-width: 767px)  {
+    .videos {
+      grid-template-columns: auto;
+    }
+  }
+
+    </style>
+
+
   </head>
   <body>
     <h1>
-      WaterTube
+      WaterTube 
     </h1>
+    
     <%- include('partials/searchbar.ejs') %>
-    <main><br><br>
-    <h3>What is watertube?</h3>
-    <p>I created watertube as a YouTube frontend altentive. 
-    Basically it's the YouTube client without the tracking (as the server does the fetching for you) and without the ads.<br><br>
-    <a href="https://github.com/aboutDavid/watertube">See the project page here!</a>
-    </p>
+    <main><br>
+      <h3>What is watertube?</h3>
+      <p>I created watertube as a YouTube frontend altentive. 
+      Basically it's the YouTube client without the tracking (as the server does the fetching for you) and without the ads.<br><br>
+      <a href="https://github.com/aboutDavid/watertube">See the project page here!</a><br>
+      <a href="/settings">You can view the settings here</a>
+      </p>
+     <br>
+       <div class="videos">
+        <% for (var i = 0; i < data.length; i++) { %>
+         <div>
+          <img src="https://i.ytimg.com/vi/<%= data[i].videoId %>/mqdefault.jpg" width="238" height="134"><br><br>
+          <a href="/watch/<%= data[i].videoId %>"><%= data[i].title %></a> &bull;
+          <a href="/channel/<%= data[i].authorId %>"><%= data[i].author %></a> &bull; <%= data[i].viewCount.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") %> views &bull; Published <%= data[i].publishedText %>
+         </div>
+        <% } %>
+       </div>
+     
+    
     </main>
   </body>
 </html>
