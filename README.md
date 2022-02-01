@@ -34,5 +34,6 @@ npm electron-build
 
 ### Instances
 
-- https://watertube.herokuapp.com/
-  Feel free to add your own!
+- https://watertube.herokuapp.com/ (pulls from 'main')
+
+Feel free to add your own!
